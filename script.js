@@ -1,16 +1,14 @@
 class Produto {//classe
     constructor() {
         this.id = 1;  //atributos
-        this.arrayProdutos = [];
-        
-        
-        
+        this.arrayProdutos = [];        
     }
 
     salvar() {
         let produto = this.lerdados();
         if (this.validaCampos(produto)) {
             this.adicionar(produto);
+            this.listaTabela();
         }
         console.log(this.arrayProdutos);
       
@@ -24,7 +22,7 @@ class Produto {//classe
         let produto = {}
 
         produto.id = this.id;
-        produto.nomeproduto = document.getElementById('produto').value;
+        produto.nomeProduto = document.getElementById('produto').value;
         produto.valor = document.getElementById('valor').value;
 
         return produto;
@@ -49,8 +47,42 @@ class Produto {//classe
         
         return true;
     }
+    listaTabela() {
+        let tbody = document.getElementById('tbody');
+        tbody.innerHTML = '';
+
+        for(let i = 0; i < this.arrayProdutos.length; i++) {
+            let tr = tbody.insertRow();
+
+            let td_id = tr.insertCell();
+            let td_produto = tr.insertCell();
+            let td_valor = tr.insertCell();
+            let td_acoes = tr.insertCell();
+
+            td_id.innerText = this.arrayProdutos[i].id;
+            td_produto.innerText = this.arrayProdutos[i].nomeProduto;
+            td_valor.innerText = this.arrayProdutos[i].valor;
+
+            td_id.classList.add('center');
+            td_acoes.classList.add('center');
+
+            let imgEdit = document.createElement('img');
+            imgEdit.src = 'edit.png';
+            imgEdit.setAttribute("onclick", "produto.editar("+JSON.stringify(this.arrayProdutos[i])+")");
+
+            let imgDelete = document.createElement('img');
+            imgDelete.src = 'delete.png';
+            imgDelete.setAttribute("onclick", "produto.deletar("+this.arrayProdutos[i].id+")");
+
+            td_acoes.appendChild(imgEdit);
+            td_acoes.appendChild(imgDelete);
+        }
+    }
+
     cancelar() {
-        
+        document.getElementById('produto').value = '';
+        document.getElementById('valor').value = '';
     }
 }
+
 var produto = new Produto();
