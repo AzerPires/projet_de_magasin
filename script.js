@@ -33,11 +33,11 @@ class Produto {//classe
         let msg = '';
 
         if (produto.nomeProduto == '') {
-            msg += 'Informe o nome do produto \n';
+            msg += 'Entrez le nom du produit \n';
         }
 
         if (produto.valor == '') {
-            msg += 'Informe o valor do produto \n';
+            msg += 'Entrez le valeur du produit \n';
         }
 
         if (msg != '') {
